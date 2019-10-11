@@ -1,36 +1,34 @@
-import "mapbox-gl/dist/mapbox-gl.css";
+// import "mapbox-gl/dist/mapbox-gl.css";
 import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
 import "./App.css";
 import React from "react";
 import ReactMapGL, { GeolocateControl, NavigationControl } from "react-map-gl";
 import Geocoder from "react-map-gl-geocoder";
 
-// const queryParams = {
-//   Country: "de"
-// };
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiZGFsbGFzYmlsbGUiLCJhIjoiY2p6OHR1aGhoMDZnZDNjbXB2ZWZlcXFudCJ9.gjjYkOkTtA-Qe1jhbvF2gQ";
 class App extends React.Component {
   state = {
     viewport: {
-      latitude: 30.27127,
-      longitude: -97.74103,
+      latitude: 40.7250863,
+      longitude: -73.9773608,
       zoom: 12
     }
   };
-  mapRef = React.createRef();
+  myMap = React.createRef();
 
   handleViewportChange = viewport => {
     this.setState({
       viewport: { ...this.state.viewport, ...viewport }
     });
   };
+
   render() {
     console.log(this.state.viewport);
     return (
       <div>
         <ReactMapGL
-          ref={this.mapRef}
+          ref={this.myMap}
           {...this.state.viewport}
           width="100vw"
           height="100vh"
@@ -39,20 +37,17 @@ class App extends React.Component {
           mapboxApiAccessToken={MAPBOX_TOKEN}
         >
           <Geocoder
-            mapRef={this.mapRef}
-            onViewportChange={this.handleViewportChange}
-            mapboxApiAccessToken={MAPBOX_TOKEN}
             position="top-left"
+            mapRef={this.myMap}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            onViewportChange={this.handleViewportChange}
           />
-
           <GeolocateControl />
           <NavigationControl />
         </ReactMapGL>
       </div>
     );
   }
-}
-{
 }
 
 export default App;
